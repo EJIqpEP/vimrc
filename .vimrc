@@ -39,6 +39,9 @@ Bundle "mxw/vim-jsx"
 " Nerdcommenter
 Bundle "scrooloose/nerdcommenter"
 
+" AutoCloseTag
+Bundle "vim-scripts/HTML-AutoCloseTag"
+
 " -------- Colors -----------
 " Enable syntax processing
 syntax enable
@@ -186,6 +189,7 @@ let g:syntastic_warning_symbol = '!'
 
 " Enable jsx for js files
 let g:jsx_ext_required = 0
+
 
 
 " Fonts
