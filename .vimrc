@@ -2,9 +2,11 @@
 set nocompatible
 filetype off
 
-set rtp+=~/.vim/bundle/vundle/
-
-call vundle#rc()
+set rtp+=~/vimfiles/bundle/Vundle.vim/
+let path='~/vimfiles/bundle'
+call vundle#begin(path)
+"set rtp+=~/.vim/bundle/vundle/
+"call vundle#rc()
 
 filetype plugin indent on
 
@@ -19,13 +21,15 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
 
 " Errors highlighting
-Bundle 'scrooloose/syntastic'
+" Doesn't work on windows
+"Bundle 'scrooloose/syntastic'
 
 " File finder
 Bundle 'kien/ctrlp.vim'
 
 " YouCompleteMe
-Bundle 'Valloric/YouCompleteMe'
+" Fix: Doesn't work on Windows
+"Bundle 'Valloric/YouCompleteMe'
 
 " Javascript syntax
 Bundle "pangloss/vim-javascript"
@@ -39,9 +43,19 @@ Bundle "mxw/vim-jsx"
 " Nerdcommenter
 Bundle "scrooloose/nerdcommenter"
 
-" AutoCloseTag
-Bundle "vim-scripts/HTML-AutoCloseTag"
+" Vim-indent-object (detects correct indent)
+Bundle "michaeljsmith/vim-indent-object"
 
+" Vim indent guides
+Bundle "Yggdroot/indentLine"
+
+"vim-trailing-whitespace (show trailing whitespace in red)
+Bundle 'ntpeters/vim-better-whitespace'
+
+" jsdocs comments
+Bundle 'heavenshell/vim-jsdoc'
+
+call vundle#end()
 " -------- Colors -----------
 " Enable syntax processing
 syntax enable
@@ -64,6 +78,9 @@ set shiftwidth=2
 
 " Turn tabs into spaces
 set expandtab
+
+" Backspace config
+set backspace=indent,eol,start
 
 " --------- UI Config -------------
 
@@ -102,6 +119,15 @@ set enc=utf-8
 
 " Change the leader key
 let mapleader=","
+
+" Remove bars
+set guioptions -=m
+set guioptions -=T
+
+" Maximize window size
+if has("gui_running")
+  set lines=999 columns=999
+endif
 
 " --------- Searching --------------
 
@@ -145,11 +171,21 @@ nnoremap ^ <nop>
 " highlight last inserted text
 nnoremap gV `[v`]
 
+" ------------ Keybindings -----------
+" Add ctrl+s functionality
+if has("gui_running")
+  if has("gui_win32")
+	noremap <silent> <C-S>          :update<CR>
+	vnoremap <silent> <C-S>         <C-C>:update<CR>
+	inoremap <silent> <C-S>         <C-O>:update<CR>
+  endif
+endif
+
 " ------------ Plugins -------------
 
 " NERDTree
 let NERDTreeShowHidden=1
-
+let NERDTreeIgnore=['\.\.$', '\.$', '\~$']
 
 " CtrlP
 " How it will find root file
@@ -182,7 +218,7 @@ let g:syntastic_mode_map = { 'mode': 'active',
 let g:syntastic_javascript_checkers = ['jshint']
 
 " Better :sign interface symbols
-let g:syntastic_error_symbol = '✗'
+let g:syntastic_error_symbol = 'âœ—'
 let g:syntastic_warning_symbol = '!'
 
 " --Vim-jsx--
@@ -190,17 +226,40 @@ let g:syntastic_warning_symbol = '!'
 " Enable jsx for js files
 let g:jsx_ext_required = 0
 
+" Vim better whitespace
+let g:strip_whitespace_on_save = 1
+
+" Jsdocs
+let g:jsdoc_return = 0
 
 
 " Fonts
-set guifont=Monaco:h12
+if has("gui_running")
+  if has("gui_gtk2")
+    set guifont=Inconsolata\ 12
+  elseif has("gui_macvim")
+    set guifont=Monaco:h12
+  elseif has("gui_win32")
+    set guifont=Consolas:h11:cANSI
+  endif
+endif
+
 
 " --------------- Backups --------------
-set backup
-set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-set backupskip=/tmp/*,/private/tmp/*
-set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-set writebackup
+if has("gui_running")
+  if has("gui_macvim")
+	set backup
+	set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+	set backupskip=/tmp/*,/private/tmp/*
+	set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+	set writebackup
+  elseif has("gui_win32")
+	set backupdir=C:\\VimTemp
+  endif
+endif
+
+
+
 
 " Autoread
 set autoread
