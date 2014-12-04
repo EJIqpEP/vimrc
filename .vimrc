@@ -22,14 +22,10 @@ Bundle 'jistr/vim-nerdtree-tabs'
 
 " Errors highlighting
 " Doesn't work on windows
-"Bundle 'scrooloose/syntastic'
+Bundle 'scrooloose/syntastic'
 
 " File finder
 Bundle 'kien/ctrlp.vim'
-
-" YouCompleteMe
-" Fix: Doesn't work on Windows
-"Bundle 'Valloric/YouCompleteMe'
 
 " Javascript syntax
 Bundle "pangloss/vim-javascript"
@@ -54,6 +50,19 @@ Bundle 'ntpeters/vim-better-whitespace'
 
 " jsdocs comments
 Bundle 'heavenshell/vim-jsdoc'
+
+" Spartup (emmet)
+" Fix: doesn't work
+"Bundle 'rstacruz/sparkup'
+
+" Supertab (autocomplete on tab)
+Bundle 'ervandew/supertab'
+
+" Javascript libraries syntax
+Bundle 'othree/javascript-libraries-syntax.vim'
+
+" Tern for vim (autocomplete)
+Bundle 'marijnh/tern_for_vim'
 
 call vundle#end()
 " -------- Colors -----------
@@ -218,7 +227,7 @@ let g:syntastic_mode_map = { 'mode': 'active',
 let g:syntastic_javascript_checkers = ['jshint']
 
 " Better :sign interface symbols
-let g:syntastic_error_symbol = 'âœ—'
+let g:syntastic_error_symbol = 'x'
 let g:syntastic_warning_symbol = '!'
 
 " --Vim-jsx--
@@ -231,6 +240,13 @@ let g:strip_whitespace_on_save = 1
 
 " Jsdocs
 let g:jsdoc_return = 0
+
+" Javascript libraries syntax
+autocmd BufReadPre *.js let b:javascript_lib_use_jquery = 1
+autocmd BufReadPre *.js let b:javascript_lib_use_underscore = 1
+autocmd BufReadPre *.js let b:javascript_lib_use_angularjs = 1
+autocmd BufReadPre *.js let b:javascript_lib_use_react = 1
+autocmd BufReadPre *.js let b:javascript_lib_use_flux = 1
 
 
 " Fonts
