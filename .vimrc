@@ -88,6 +88,9 @@ Plugin 'mattn/emmet-vim'
 " Ask (search text in files)
 Plugin 'mileszs/ack.vim'
 
+" Airline (statusbar)
+Plugin 'bling/vim-airline'
+
 call vundle#end()
 
 " }}}
@@ -235,8 +238,12 @@ if has("gui_running")
   endif
 endif
 
+" Keybinds for tabbing block in visual mode
 vmap <Tab> >gv
 vmap <S-Tab> <gv
+
+" Open vimrc file
+nmap <leader>v :tabedit $MYVIMRC<CR>
 
 " }}}
 "
@@ -302,6 +309,12 @@ autocmd BufReadPre *.js let b:javascript_lib_use_flux = 1
 " Emmet-vim
 let g:user_emmet_leader_key='<C-e>'
 
+" Airline
+" Use powerline fonts
+let g:airline_powerline_fonts = 1
+" Show all buffers
+let g:airline#extensions#tabline#enabled = 1
+
 " }}}
 
 " Fonts {{{
@@ -336,6 +349,11 @@ set autoread
 
 " Save on losing focus
 autocmd BufLeave,FocusLost * silent! wall
+
+" Source the vimrc file after saving it
+if has("autocmd")
+  autocmd bufwritepost .vimrc source $MYVIMRC
+endif
 
 " }}}
 
