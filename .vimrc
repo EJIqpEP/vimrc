@@ -62,7 +62,10 @@ Bundle 'ervandew/supertab'
 Bundle 'othree/javascript-libraries-syntax.vim'
 
 " Tern for vim (autocomplete)
-Bundle 'marijnh/tern_for_vim'
+"Bundle 'marijnh/tern_for_vim'
+
+" Editors config
+Bundle 'editorconfig/editorconfig-vim'
 
 call vundle#end()
 " -------- Colors -----------
@@ -279,3 +282,7 @@ endif
 
 " Autoread
 set autoread
+
+
+" Save on losing focus
+autocmd BufLeave,FocusLost * silent! wall
