@@ -1,74 +1,98 @@
-" ---------Vundle call-----------
+" Alexander Kochergin
+"
+" Vundle call {{{
 set nocompatible
 filetype off
 
 set rtp+=~/vimfiles/bundle/Vundle.vim/
-let path='~/vimfiles/bundle'
-call vundle#begin(path)
-"set rtp+=~/.vim/bundle/vundle/
-"call vundle#rc()
+
+if has("gui_running")
+  if has("gui_macvim")
+    call vundle#begin()
+  elseif has("gui_win32")
+    let path='~/vimfiles/bundle'
+    call vundle#begin(path)
+  endif
+endif
+
 
 filetype plugin indent on
+filetype indent on
 
 " Plugins bundle
 " Theme
-Bundle 'altercation/vim-colors-solarized'
+Plugin 'altercation/vim-colors-solarized'
 
 " NerdTree
-Bundle 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdtree'
 
 " NerdTree tabs
-Bundle 'jistr/vim-nerdtree-tabs'
+Plugin 'jistr/vim-nerdtree-tabs'
 
 " Errors highlighting
 " Doesn't work on windows
-Bundle 'scrooloose/syntastic'
+Plugin 'scrooloose/syntastic'
 
 " File finder
-Bundle 'kien/ctrlp.vim'
+Plugin 'kien/ctrlp.vim'
 
 " Javascript syntax
-Bundle "pangloss/vim-javascript"
+Plugin 'pangloss/vim-javascript'
 
 " Auto pairs
-Bundle "jiangmiao/auto-pairs"
+Plugin 'jiangmiao/auto-pairs'
 
 " Vim jsx
-Bundle "mxw/vim-jsx"
+Plugin 'mxw/vim-jsx'
 
 " Nerdcommenter
-Bundle "scrooloose/nerdcommenter"
+Plugin 'scrooloose/nerdcommenter'
 
 " Vim-indent-object (detects correct indent)
-Bundle "michaeljsmith/vim-indent-object"
+Plugin 'michaeljsmith/vim-indent-object'
 
 " Vim indent guides
-Bundle "Yggdroot/indentLine"
+Plugin 'Yggdroot/indentLine'
 
 "vim-trailing-whitespace (show trailing whitespace in red)
-Bundle 'ntpeters/vim-better-whitespace'
+Plugin 'ntpeters/vim-better-whitespace'
 
 " jsdocs comments
-Bundle 'heavenshell/vim-jsdoc'
+Plugin 'heavenshell/vim-jsdoc'
 
 " Spartup (emmet)
 " Fix: doesn't work
-"Bundle 'rstacruz/sparkup'
+"Plugin 'rstacruz/sparkup'
 
 " Supertab (autocomplete on tab)
-Bundle 'ervandew/supertab'
+Plugin 'ervandew/supertab'
 
 " Javascript libraries syntax
-Bundle 'othree/javascript-libraries-syntax.vim'
+Plugin 'othree/javascript-libraries-syntax.vim'
 
 " Tern for vim (autocomplete)
-"Bundle 'marijnh/tern_for_vim'
+"Plugin 'marijnh/tern_for_vim'
 
 " Editors config
-Bundle 'editorconfig/editorconfig-vim'
+Plugin 'editorconfig/editorconfig-vim'
+
+" Colorschemes for vim
+Plugin 'flazz/vim-colorschemes'
+
+" Match html tag
+Plugin 'gregsexton/MatchTag'
+
+" Emmet vim
+Plugin 'mattn/emmet-vim'
+
+" Ask (search text in files)
+Plugin 'mileszs/ack.vim'
 
 call vundle#end()
-" -------- Colors -----------
+
+" }}}
+
+" Colors {{{
 " Enable syntax processing
 syntax enable
 
@@ -76,8 +100,10 @@ syntax enable
 set background=dark
 colorscheme solarized
 
+" }}}
 
-" --------- Spaces & Tabs --------
+
+" Spaces & Tabs {{{
 
 " Number of visual spaces per TAB
 set tabstop=2
@@ -88,13 +114,18 @@ set softtabstop=2
 " Dunno
 set shiftwidth=2
 
+" Dunno
+set modelines=1
+
 " Turn tabs into spaces
 set expandtab
 
 " Backspace config
 set backspace=indent,eol,start
 
-" --------- UI Config -------------
+" }}}
+
+" UI Config {{{
 
 " Show line numbers
 set number
@@ -141,7 +172,12 @@ if has("gui_running")
   set lines=999 columns=999
 endif
 
-" --------- Searching --------------
+" }}}
+
+" Searching {{{
+
+" Ignorecase
+set ignorecase
 
 " Search as characters are entered
 set incsearch
@@ -149,7 +185,9 @@ set incsearch
 " Highlight matches
 set hlsearch
 
-" -------- Folding -----------------
+" }}}
+
+" Folding {{{
 
 " Enable folding
 set foldenable
@@ -166,7 +204,9 @@ nnoremap <space> za
 " Fold based on indent level
 set foldmethod=indent
 
-" ----------- Movement -------------
+" }}}
+
+" Movement {{{
 
 " Move vertically by visual line
 nnoremap j gj
@@ -183,7 +223,9 @@ nnoremap ^ <nop>
 " highlight last inserted text
 nnoremap gV `[v`]
 
-" ------------ Keybindings -----------
+" }}}
+
+" Keybindings {{{
 " Add ctrl+s functionality
 if has("gui_running")
   if has("gui_win32")
@@ -193,7 +235,13 @@ if has("gui_running")
   endif
 endif
 
-" ------------ Plugins -------------
+vmap <Tab> >gv
+vmap <S-Tab> <gv
+
+" }}}
+"
+
+" Plugins {{{
 
 " NERDTree
 let NERDTreeShowHidden=1
@@ -251,8 +299,12 @@ autocmd BufReadPre *.js let b:javascript_lib_use_angularjs = 1
 autocmd BufReadPre *.js let b:javascript_lib_use_react = 1
 autocmd BufReadPre *.js let b:javascript_lib_use_flux = 1
 
+" Emmet-vim
+let g:user_emmet_leader_key='<C-e>'
 
-" Fonts
+" }}}
+
+" Fonts {{{
 if has("gui_running")
   if has("gui_gtk2")
     set guifont=Inconsolata\ 12
@@ -263,8 +315,10 @@ if has("gui_running")
   endif
 endif
 
+" }}}
 
-" --------------- Backups --------------
+
+" Backups {{{
 if has("gui_running")
   if has("gui_macvim")
 	set backup
@@ -277,12 +331,12 @@ if has("gui_running")
   endif
 endif
 
-
-
-
 " Autoread
 set autoread
 
-
 " Save on losing focus
 autocmd BufLeave,FocusLost * silent! wall
+
+" }}}
+
+" vim:foldmethod=marker:foldlevel=0
