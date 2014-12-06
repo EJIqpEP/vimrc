@@ -4,12 +4,13 @@
 set nocompatible
 filetype off
 
-set rtp+=~/vimfiles/bundle/Vundle.vim/
 
 if has("gui_running")
   if has("gui_macvim")
+    set rtp+=~/.vim/bundle/Vundle.vim
     call vundle#begin()
   elseif has("gui_win32")
+    set rtp+=~/vimfiles/bundle/Vundle.vim/
     let path='~/vimfiles/bundle'
     call vundle#begin(path)
   endif
@@ -89,7 +90,10 @@ Plugin 'mattn/emmet-vim'
 Plugin 'mileszs/ack.vim'
 
 " Airline (statusbar)
-Plugin 'bling/vim-airline'
+"Plugin 'bling/vim-airline'
+
+" Fugitive (git)
+Plugin 'tpope/vim-fugitive'
 
 call vundle#end()
 
@@ -232,9 +236,9 @@ nnoremap gV `[v`]
 " Add ctrl+s functionality
 if has("gui_running")
   if has("gui_win32")
-	noremap <silent> <C-S>          :update<CR>
-	vnoremap <silent> <C-S>         <C-C>:update<CR>
-	inoremap <silent> <C-S>         <C-O>:update<CR>
+  noremap <silent> <C-S>          :update<CR>
+  vnoremap <silent> <C-S>         <C-C>:update<CR>
+  inoremap <silent> <C-S>         <C-O>:update<CR>
   endif
 endif
 
@@ -309,11 +313,26 @@ autocmd BufReadPre *.js let b:javascript_lib_use_flux = 1
 " Emmet-vim
 let g:user_emmet_leader_key='<C-e>'
 
-" Airline
-" Use powerline fonts
-let g:airline_powerline_fonts = 1
-" Show all buffers
-let g:airline#extensions#tabline#enabled = 1
+set laststatus=2
+" clear the statusline for when vimrc is reloaded
+set statusline=
+" fugitive
+set statusline+=%{fugitive#statusline()}\
+"file format
+set statusline +=%5*%{&ff}%*
+"file type
+set statusline +=%3*%y%*
+"full path
+set statusline +=%4*\ %<%F%*
+"modified flag
+set statusline +=%2*%m%*
+" line and column
+set statusline+=%10((%l,%c)%)\
+"Modified? Readonly? Top/bot.
+set statusline+=%0*\ \ %m%r%w\ %P\ \
+"-------------
+
+let g:bufferline_echo = 0
 
 " }}}
 
@@ -334,13 +353,13 @@ endif
 " Backups {{{
 if has("gui_running")
   if has("gui_macvim")
-	set backup
-	set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-	set backupskip=/tmp/*,/private/tmp/*
-	set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-	set writebackup
+  set backup
+  set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+  set backupskip=/tmp/*,/private/tmp/*
+  set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+  set writebackup
   elseif has("gui_win32")
-	set backupdir=C:\\VimTemp
+  set backupdir=C:\\VimTemp
   endif
 endif
 
