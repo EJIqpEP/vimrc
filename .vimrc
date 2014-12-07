@@ -32,7 +32,7 @@ Plugin 'jistr/vim-nerdtree-tabs'
 
 " Errors highlighting
 " Doesn't work on windows
-Plugin 'scrooloose/syntastic'
+"Plugin 'scrooloose/syntastic'
 
 " File finder
 Plugin 'kien/ctrlp.vim'
@@ -270,27 +270,7 @@ let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 
 
-" --Syntastic--
 
-" Check of errors is on
-let g:syntastic_enable_signs=1
-
-" Automatically load errors in location list
-let g:syntastic_always_populate_loc_list = 1
-
-" Check errors on file open
-let g:syntastic_check_on_open = 1
-
-let g:syntastic_mode_map = { 'mode': 'active',
-    \ 'active_filetypes': [],
-    \ 'passive_filetypes': ['html'] }
-
-" Add jshint as JS spellcheker
-let g:syntastic_javascript_checkers = ['jshint']
-
-" Better :sign interface symbols
-let g:syntastic_error_symbol = 'x'
-let g:syntastic_warning_symbol = '!'
 
 " --Vim-jsx--
 
@@ -313,23 +293,23 @@ autocmd BufReadPre *.js let b:javascript_lib_use_flux = 1
 " Emmet-vim
 let g:user_emmet_leader_key='<C-e>'
 
-set laststatus=2
+"set laststatus=2
 " clear the statusline for when vimrc is reloaded
-set statusline=
+"set statusline=
 " fugitive
-set statusline+=%{fugitive#statusline()}\
+"set statusline+=%{fugitive#statusline()}\
 "file format
-set statusline +=%5*%{&ff}%*
+"set statusline +=%5*%{&ff}%*
 "file type
-set statusline +=%3*%y%*
+"set statusline +=%3*%y%*
 "full path
-set statusline +=%4*\ %<%F%*
+"set statusline +=%4*\ %<%F%*
 "modified flag
-set statusline +=%2*%m%*
+"set statusline +=%2*%m%*
 " line and column
-set statusline+=%10((%l,%c)%)\
+"set statusline+=%10((%l,%c)%)\
 "Modified? Readonly? Top/bot.
-set statusline+=%0*\ \ %m%r%w\ %P\ \
+"set statusline+=%0*\ \ %m%r%w\ %P\ \
 "-------------
 
 let g:bufferline_echo = 0
@@ -339,11 +319,11 @@ let g:bufferline_echo = 0
 " Fonts {{{
 if has("gui_running")
   if has("gui_gtk2")
-    set guifont=Inconsolata\ 12
+    set guifont=Inconsolata\ 14
   elseif has("gui_macvim")
-    set guifont=Monaco:h12
+    set guifont=Monaco:h14
   elseif has("gui_win32")
-    set guifont=Consolas:h11:cANSI
+    set guifont=Consolas:h14:cANSI
   endif
 endif
 
